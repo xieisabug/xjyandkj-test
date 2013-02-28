@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	background-image:url(../image/backgroud.jpg) !important;
+	background-repeat:repeat-y;
+	background-position:center;
+}
+/*下面是菜单栏的CSS*/
+#ToolBar {
+	height:40px;
+	width:100%;
+	background-image:url(../image/MainPageToolBar.jpg);
+	background-repeat:repeat-x;
+	color: #EEE;
+}
+
+#ToolBar ul li {
+	width:100px;
+	height:40px;
+	font-family:"微软雅黑","黑体","宋体";
+	font-size:20px;
+	line-height:40px;
+	float:left;
+	list-style:none;
+}
+
+#ToolBar ul li a {
+	height:40px;
+	text-decoration:none;
+	text-align: center;
+	font-weight: bold;
+}
+
+/*下面是好友栏和状态窗口的CSS*/
+#MainBox {
+	height:550px;
+	width:100%;
+	margin-top:10px;
+}
+		/*好友栏*/
+#FriendBox {
+	height:100%;
+	width:60%;
+}
+			/*好友块*/
+.friendlist {
+	background-color:#26606D;
+	width:130px;
+	height:130px;
+	margin:10px;
+	padding:10px;
+	box-shadow:2px 6px 6px 1px #151515;
+	float:left;
+}
+.friendlist ul {
+	margin:0px;
+	padding:0px;
+	width:100px;
+	list-style:none;
+}
+.friendlist ul li {
+	width:100px;
+	list-style:none;
+	font-family:"微软雅黑", "黑体", "宋体";
+}
