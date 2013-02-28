@@ -1,0 +1,15 @@
+#start_scene {
+    margin: 0 auto;
+    padding: 0;
+    width: 800px;
+    height: 600px;
+    background-color: #DDDDDD;
+}
+#me {
+    top: 0px;
+    left: 0px;
+    width: 92px;
+    height: 143px;
+    position: relative;
+    background: url("../image/person.png") no-repeat;
+}
