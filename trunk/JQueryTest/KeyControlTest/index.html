@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>keyControl</title>
+    <script type="text/javascript" src="../utils/Log.js"></script>
+    <script type="text/javascript" src="../utils/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="jquery.keyControl.js"></script>
+    <script type="text/javascript">
+        (function(){
+            var aa = function(html,a){
+                $("#content").html('<p>我按的是s</p>' + html + a);
+            };
+            $(document).keyControl(KEY.s,aa,["aaa","bbb"]);
+        })();
+    </script>
+</head>
+<body>
+    <div id="content"></div>
+</body>
+</html>
