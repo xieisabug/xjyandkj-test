@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>prj03</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #d {
+            height: 100px;
+            width: 100px;
+            background-color: #551123;
+        }
+        #a {
+            height: 100px;
+            width: 100px;
+            background-color: #123123;
+        }
+    </style>
+    <link href="jquery.contextMenu.css" rel="stylesheet"/>
+    <script src="../util/Log.js" type="text/javascript"></script>
+    <script src="../util/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="jquery.contextMenu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#d').contextMenu({
+                fontSize:12,
+                item:[
+                    '<a href="http://www.baidu.com" target="_blank"><li>百度</li></a>',
+                    '<li>bbb</li>'
+                ]
+            });
+            $('#a').contextMenu({
+                fontSize:12,
+                item:[
+                    '<a href="http://www.google.com" target="_blank"><li>谷歌</li></a>',
+                    '<li>bbb</li>'
+                ]
+            });
+        })
+    </script>
+</head>
+<body>
+<div id="a"></div>
+<div id="d"></div>
+</body>
+</html>
