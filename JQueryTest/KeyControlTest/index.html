@@ -7,12 +7,12 @@
     <script type="text/javascript" src="../utils/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="jquery.keyControl.js"></script>
     <script type="text/javascript">
-        (function(){
+        $(function(){
             var aa = function(html,a){
                 $("#content").html('<p>我按的是s</p>' + html + a);
             };
             $(document).keyControl(KEY.s,aa,["aaa","bbb"]);
-        })();
+        });
     </script>
 </head>
 <body>
