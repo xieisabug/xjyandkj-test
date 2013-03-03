@@ -36,14 +36,14 @@
             margin-right: 5px;
         }
     </style>
-    <script src="../util/Log.js" type="text/javascript"></script>
-    <script src="../util/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="../utils/Log.js" type="text/javascript"></script>
+    <script src="../utils/jquery-1.8.0.min.js" type="text/javascript"></script>
     <script src="jquery.parser.js" type="text/javascript"></script>
     <script src="jquery.draggable.js" type="text/javascript"></script>
     <script src="jquery.window.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-            $('#d').dblclick(function(){
+            $("#d").dblclick(function(){
                 $(this).window({
                     href : 'http://www.baidu.com',
                     title:"百度",
@@ -51,7 +51,7 @@
                     height:600
                 });
             });
-            $('#d')[0].onselectstart = function(){
+            $("#d")[0].onselectstart = function(){
                 return false;
             }
         })
