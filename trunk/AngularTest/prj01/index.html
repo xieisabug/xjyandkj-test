@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>过滤器</title>
+    <script src="../util/angular.js"></script>
+    <script src="controllers.js"></script>
+</head>
+<body ng-controller="PhoneListCtrl">
+Search: <input ng-model="query">
+Sort by:
+<select ng-model="orderProp">
+    <option value="name">name</option>
+    <option value="age">age</option>
+</select>
+    <ul>
+        <li ng-repeat="phone in phones | filter:query | orderBy:orderProp">
+            {{phone.name}}
+            <p>{{phone.snippet}}</p>
+        </li>
+    </ul>
+</body>
+</html>

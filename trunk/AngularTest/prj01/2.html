@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="utf-8">
+    <title>多绑定</title>
+    <script src="../util/angular.js"></script>
+    <script src="controllers.js"></script>
+</head>
+<body>
+<div ng-init="list = ['Chrome', 'IE', 'FireFox']">
+<input ng-model="list" ng-list><br>
+<input ng-model="list" ng-list><br>
+<pre>list={{list}}</pre>
+<ol>
+    <li ng-repeat="item in list">
+        {{item}}
+    </li>
+</ol>
+</div>
+</body>
+</html>
