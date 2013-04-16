@@ -10,6 +10,8 @@
         tag:'gameCanvas',
         engineDir:'../cocos2d/',
         appFiles:[
+            'src/res.js',
+            'src/view/GameStartScene.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
