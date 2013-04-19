@@ -1,3 +1,5 @@
+var TG = TG || {};
+
 var tankGameApp = cc.Application.extend({
     config:document['ccConfig'],
     ctor:function (scene) {

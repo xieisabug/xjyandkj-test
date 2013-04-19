@@ -11,7 +11,10 @@
         engineDir:'../cocos2d/',
         appFiles:[
             'src/res.js',
-            'src/view/GameStartScene.js'
+            'src/view/GameStartScene.js',
+            'src/view/ChooseCharacterScene.js',
+            'src/view/GamePlayScene.js',
+            'src/model/Tank.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
