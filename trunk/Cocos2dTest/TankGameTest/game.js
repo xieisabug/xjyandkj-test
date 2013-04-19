@@ -1,3 +1,5 @@
+var TG = TG || {};
+
 (function(){
     var d = document;
     var c = {
@@ -11,6 +13,7 @@
         engineDir:'../cocos2d/',
         appFiles:[
             'src/res.js',
+            'src/controller/GameConfig.js',
             'src/view/GameStartScene.js',
             'src/view/ChooseCharacterScene.js',
             'src/view/GamePlayScene.js',
