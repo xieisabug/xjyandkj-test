@@ -1,21 +1,26 @@
 var GamePlayScene = cc.Layer.extend({
-
+    tank:null,
     ctor:function(){
 
     },
     init:function(){
         var ret = false;
         if(this._super){
-            var tank = new Tank(s_tank,10,10,10);
-            tank.setPosition(tank.position.x,tank.position.y);
-            tank.setTag(tank.tag);
-            this.addChild(tank);
+            this.tank = new Tank(s_tank,10,5,10);
+            this.tank.setPosition(this.tank.position.x,this.tank.position.y);
+            this.tank.setTag(this.tank.tag);
+            this.addChild(this.tank);
 
-            this.setKeyboardEnabled(true);
+            this.scheduleUpdate();//这个方法会在每一帧调用update方法
+            this.setMouseEnabled(true);//设置鼠标可点击
+            this.setKeyboardEnabled(true);//设置键盘可输入
 
             ret = true;
         }
         return ret;
+    },
+    update:function(dt){
+        this.tank.update(dt);
     },
     onKeyDown:function(e){
         TG.KEYS[e] = true;
