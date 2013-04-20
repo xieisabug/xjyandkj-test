@@ -1,5 +1,7 @@
+//按键
 TG.KEYS = [];
 
+//方向
 TG.DIRECTION = {
     UP:1,
     DOWN:2,
@@ -12,15 +14,24 @@ TG.DIRECTION = {
     NULL:9
 };
 
+//容器
 TG.CONTAINER = {
     ENEMIES:[],
     ENEMY_BULLETS:[],
     PLAYER_BULLETS:[]
 };
 
+//阵营
 TG.SIDE = {
     PLAYER:1,
     ENEMIES:2,
     ALL:3,
     NULL:4
 };
+
+//Tag
+TG.TAG = {
+    PLAYER_TANK:1000,
+    ENEMY_TANK:1000,
+    BULLET:995
+}

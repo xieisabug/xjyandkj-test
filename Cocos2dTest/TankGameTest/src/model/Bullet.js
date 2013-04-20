@@ -3,54 +3,59 @@ var Bullet = cc.Sprite.extend({
     side:null,
     direction:null,
     speed:null,
-    position:{x:0,y:0},
-    ctor:function(file,side,attack,speed,dir,pos){
+    ctor:function (file, side, attack, speed, dir) {
         this.initWithFile(file);
         this.side = side;
         this.attack = attack;
         this.speed = speed;
         this.direction = dir;
-        this.position = pos;
     },
-    update:function(){
-        var sqrt = Math.sqrt(2*this.speed*this.speed);
-        switch (this.direction){
+    update:function () {
+        var pos = this.getPosition();
+        var sqrt = Math.sqrt(this.speed * this.speed/2);
+        switch (this.direction) {
             case TG.DIRECTION.UP:
-                this.position.y-=this.speed;
+                pos.y += this.speed;
                 break;
             case TG.DIRECTION.LEFT:
-                this.position.x-=this.speed;
+                pos.x -= this.speed;
                 break;
             case TG.DIRECTION.RIGHT:
-                this.position.x+=this.speed;
+                pos.x += this.speed;
                 break;
             case TG.DIRECTION.DOWN:
-                this.position.y+=this.speed;
+                pos.y -= this.speed;
                 break;
             case TG.DIRECTION.LEFT_UP:
-                this.position.x-=sqrt;
-                this.position.y-=sqrt;
+                pos.x -= sqrt;
+                pos.y += sqrt;
                 break;
             case TG.DIRECTION.LEFT_DOWN:
-                this.position.x-=sqrt;
-                this.position.y+=sqrt;
+                pos.x -= sqrt;
+                pos.y -= sqrt;
                 break;
             case TG.DIRECTION.RIGHT_UP:
-                this.position.x+=sqrt;
-                this.position.y-=sqrt;
+                pos.x += sqrt;
+                pos.y += sqrt;
                 break;
             case TG.DIRECTION.RIGHT_DOWN:
-                this.position.x+=sqrt;
-                this.position.y+=sqrt;
+                pos.x += sqrt;
+                pos.y -= sqrt;
                 break;
         }
+        this.setPosition(pos.x,pos.y);
     },
-    hit:function(){
+    hit:function () {
 
+    },
+    destroy:function(){
+        this.removeFromParent(true);
     }
 });
 
-Bullet.create = function(file,side,attack,speed,dir,pos){
-    var bullet = new Bullet(file,side,attack,speed,dir,pos);
+Bullet.create = function (file, side, attack, speed, dir, pos) {
+    var bullet = new Bullet(file, side, attack, speed, dir, pos);
+    bullet.setPosition(pos.x,pos.y);
+    bullet.setTag(TG.TAG.BULLET);
     return bullet;
 }

@@ -4,11 +4,9 @@ var Tank = cc.Sprite.extend({
     speed:null, //坦克的速度
     attack:null, //坦克的攻击力
     side:null, //坦克的阵营
-    position:{x:100, y:100}, //坦克的位置
     direction:TG.DIRECTION.UP, //坦克的朝向
     tmpDirection:TG.DIRECTION.UP, //存储一个过去的方向
     moveDirection:TG.DIRECTION.NULL, //移动的方向，默认不移动
-    tag:1000, //坦克的位置标志
     ctor:function (file, side, life, speed, attack) {
         this._super();
         this.initWithFile(file);
@@ -20,40 +18,41 @@ var Tank = cc.Sprite.extend({
     update:function () {
         this.setDirection();
         this.rotateToDirection();
+        var pos = this.getPosition();
         var sqrt = Math.sqrt(this.speed * this.speed / 2);//斜着走的路径
         switch (this.moveDirection) {
             case TG.DIRECTION.NULL:
                 break;
             case TG.DIRECTION.UP:
-                this.position.y += this.speed;
+                pos.y += this.speed;
                 break;
             case TG.DIRECTION.LEFT:
-                this.position.x -= this.speed;
+                pos.x -= this.speed;
                 break;
             case TG.DIRECTION.RIGHT:
-                this.position.x += this.speed;
+                pos.x += this.speed;
                 break;
             case TG.DIRECTION.DOWN:
-                this.position.y -= this.speed;
+                pos.y -= this.speed;
                 break;
             case TG.DIRECTION.LEFT_UP:
-                this.position.x -= sqrt;
-                this.position.y += sqrt;
+                pos.x -= sqrt;
+                pos.y += sqrt;
                 break;
             case TG.DIRECTION.LEFT_DOWN:
-                this.position.x -= sqrt;
-                this.position.y -= sqrt;
+                pos.x -= sqrt;
+                pos.y -= sqrt;
                 break;
             case TG.DIRECTION.RIGHT_UP:
-                this.position.x += sqrt;
-                this.position.y += sqrt;
+                pos.x += sqrt;
+                pos.y += sqrt;
                 break;
             case TG.DIRECTION.RIGHT_DOWN:
-                this.position.x += sqrt;
-                this.position.y -= sqrt;
+                pos.x += sqrt;
+                pos.y -= sqrt;
                 break;
         }
-        this.setPosition(this.position.x, this.position.y);
+        this.setPosition(pos.x, pos.y);
     },
     setDirection:function () {
         var keys = TG.KEYS;
@@ -84,9 +83,6 @@ var Tank = cc.Sprite.extend({
             this.moveDirection = TG.DIRECTION.RIGHT;
         } else if (!keys[cc.KEY.up] && !keys[cc.KEY.down] && !keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.moveDirection = TG.DIRECTION.NULL;
-        }
-        if(keys[cc.KEY.a]){
-            this.shoot();
         }
     },
     rotateToDirection:function () {
@@ -122,12 +118,10 @@ var Tank = cc.Sprite.extend({
     },
     shoot:function () {
         var bullet = Bullet.create(s_bullet, this.side,
-            this.attack, 5, this.direction, this.position);
+            this.attack, 5, this.direction, this.getPosition());
         this.getParent().addChild(bullet);
+
         TG.CONTAINER.PLAYER_BULLETS.push(bullet);
-    },
-    getPosition:function () {
-        return this.position;
     },
     getLife:function () {
         return this.life;
