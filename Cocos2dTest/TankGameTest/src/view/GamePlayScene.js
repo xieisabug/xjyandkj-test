@@ -15,6 +15,11 @@ var GamePlayScene = cc.Layer.extend({
             this.tank.setTag(TG.TAG.PLAYER_TANK);
             this.addChild(this.tank);
 
+            var e = new Enemy(s_tank,5,5,5);
+            e.setPosition(200,200);
+            this.addChild(e);
+            TG.CONTAINER.ENEMIES.push(e);
+
             this.scheduleUpdate();//这个方法会在每一帧调用update方法
             this.setMouseEnabled(true);//设置鼠标可点击
             this.setKeyboardEnabled(true);//设置键盘可输入
@@ -25,17 +30,26 @@ var GamePlayScene = cc.Layer.extend({
     },
     update:function(dt){
         var sel,obj = this.getChildren();
+        console.log("aa");
         for(var i = 0; i<obj.length; i++){
             sel = obj[i];
             if(sel){
                 if(typeof sel.update == 'function'){
                     sel.update();
-                    if(sel.getTag()==995 && !cc.rectIntersectsRect(this.screenRect,sel.getBoundingBox())){
-                        sel.destroy();
+                    if(sel.getTag()==TG.TAG.BULLET){//如果是子弹
+                        for(var j=0;j<TG.CONTAINER.ENEMIES.length;j++){
+                            var tank = TG.CONTAINER.ENEMIES[j];
+                            sel.hit(tank);//对每一个敌人尝试打击
+                        }
+                        if(!cc.rectIntersectsRect(this.screenRect,sel.getBoundingBox())){
+                            sel.destroy();//飞出边界就销毁
+                        }
                     }
                 }
             }
+            console.log("bb");
         }
+        console.log("cc");
     },
     onKeyDown:function(e){
         TG.KEYS[e] = true;

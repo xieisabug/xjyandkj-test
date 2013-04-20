@@ -34,4 +34,6 @@ TG.TAG = {
     PLAYER_TANK:1000,
     ENEMY_TANK:1000,
     BULLET:995
-}
+};
+
+TG.LIFE = 3;

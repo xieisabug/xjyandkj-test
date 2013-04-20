@@ -1,6 +1,7 @@
 var Tank = cc.Sprite.extend({
     winSize:null, //游戏的大小
     life:null, //坦克的生命值
+    maxLife:null,//生命值上限
     speed:null, //坦克的速度
     attack:null, //坦克的攻击力
     side:null, //坦克的阵营
@@ -12,6 +13,7 @@ var Tank = cc.Sprite.extend({
         this.initWithFile(file);
         this.winSize = cc.Director.getInstance().getWinSize();
         this.life = life;
+        this.maxLife = life;
         this.speed = speed;
         this.attack = attack;
     },
@@ -123,22 +125,23 @@ var Tank = cc.Sprite.extend({
 
         TG.CONTAINER.PLAYER_BULLETS.push(bullet);
     },
-    getLife:function () {
-        return this.life;
+    hurt:function (attack) {
+        this.life -= attack;
+        if(this.life <= 0){
+            if(TG.LIFE > 0) {
+                this.reborn();
+            } else {
+                this.destroy();
+            }
+
+        }
     },
-    setLife:function (life) {
-        this.life = life;
+    reborn:function(){
+        TG.LIFE--;
+        this.life = this.maxLife;
+        //todo 写一个重生的动画
     },
-    getSpeed:function () {
-        return this.speed;
-    },
-    setSpeed:function (speed) {
-        this.speed = speed;
-    },
-    getAttack:function () {
-        return this.attack;
-    },
-    setAttack:function (attack) {
-        this.attack = attack;
+    destroy:function(){
+        this.removeFromParent(true);
     }
 });

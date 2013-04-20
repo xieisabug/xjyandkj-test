@@ -13,12 +13,14 @@ var TG = TG || {};
         engineDir:'../cocos2d/',
         appFiles:[
             'src/res.js',
+            'src/util/MathUtil.js',
             'src/controller/GameConfig.js',
             'src/view/GameStartScene.js',
             'src/view/ChooseCharacterScene.js',
             'src/view/GamePlayScene.js',
             'src/model/Tank.js',
-            'src/model/Bullet.js'
+            'src/model/Bullet.js',
+            'src/model/Enemy.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
