@@ -1,13 +1,16 @@
 var Tank = cc.Sprite.extend({
-    winSize:null,
-    life:null,
-    speed:null,
-    attack:null,
-    position:{x:100, y:100},
-    direction:TG.DIRECTION.UP,
-    tmpDirection:TG.DIRECTION.UP,
-    tag:1000,
-    ctor:function (file, life, speed, attack) {
+    winSize:null, //游戏的大小
+    life:null, //坦克的生命值
+    speed:null, //坦克的速度
+    attack:null, //坦克的攻击力
+    side:null, //坦克的阵营
+    position:{x:100, y:100}, //坦克的位置
+    direction:TG.DIRECTION.UP, //坦克的朝向
+    tmpDirection:TG.DIRECTION.UP, //存储一个过去的方向
+    moveDirection:TG.DIRECTION.NULL, //移动的方向，默认不移动
+    tag:1000, //坦克的位置标志
+    ctor:function (file, side, life, speed, attack) {
+        this._super();
         this.initWithFile(file);
         this.winSize = cc.Director.getInstance().getWinSize();
         this.life = life;
@@ -15,42 +18,75 @@ var Tank = cc.Sprite.extend({
         this.attack = attack;
     },
     update:function () {
-        var pos = this.getPosition();
-        if (TG.KEYS[cc.KEY.up] && this.position.y <= this.winSize.height) {
-            pos.y += this.speed;
-        }
-        if (TG.KEYS[cc.KEY.down] && this.position.y >= 0) {
-            pos.y -= this.speed;
-        }
-        if (TG.KEYS[cc.KEY.left] && this.position.x >= 0) {
-            pos.x -= this.speed;
-        }
-        if (TG.KEYS[cc.KEY.right] && this.position.x <= this.winSize.width) {
-            pos.x += this.speed;
-        }
         this.setDirection();
         this.rotateToDirection();
-        this.setPosition(pos.x, pos.y);
+        var sqrt = Math.sqrt(this.speed * this.speed / 2);//斜着走的路径
+        switch (this.moveDirection) {
+            case TG.DIRECTION.NULL:
+                break;
+            case TG.DIRECTION.UP:
+                this.position.y += this.speed;
+                break;
+            case TG.DIRECTION.LEFT:
+                this.position.x -= this.speed;
+                break;
+            case TG.DIRECTION.RIGHT:
+                this.position.x += this.speed;
+                break;
+            case TG.DIRECTION.DOWN:
+                this.position.y -= this.speed;
+                break;
+            case TG.DIRECTION.LEFT_UP:
+                this.position.x -= sqrt;
+                this.position.y += sqrt;
+                break;
+            case TG.DIRECTION.LEFT_DOWN:
+                this.position.x -= sqrt;
+                this.position.y -= sqrt;
+                break;
+            case TG.DIRECTION.RIGHT_UP:
+                this.position.x += sqrt;
+                this.position.y += sqrt;
+                break;
+            case TG.DIRECTION.RIGHT_DOWN:
+                this.position.x += sqrt;
+                this.position.y -= sqrt;
+                break;
+        }
+        this.setPosition(this.position.x, this.position.y);
     },
     setDirection:function () {
         var keys = TG.KEYS;
         this.tmpDirection = this.direction;
         if (keys[cc.KEY.up] && !keys[cc.KEY.down] && keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.LEFT_UP;
+            this.moveDirection = TG.DIRECTION.LEFT_UP;
         } else if (!keys[cc.KEY.up] && keys[cc.KEY.down] && keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.LEFT_DOWN;
+            this.moveDirection = TG.DIRECTION.LEFT_DOWN;
         } else if (keys[cc.KEY.up] && !keys[cc.KEY.down] && !keys[cc.KEY.left] && keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.RIGHT_UP;
+            this.moveDirection = TG.DIRECTION.RIGHT_UP;
         } else if (!keys[cc.KEY.up] && keys[cc.KEY.down] && !keys[cc.KEY.left] && keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.RIGHT_DOWN;
+            this.moveDirection = TG.DIRECTION.RIGHT_DOWN;
         } else if (keys[cc.KEY.up] && !keys[cc.KEY.down] && !keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.UP;
+            this.moveDirection = TG.DIRECTION.UP;
         } else if (!keys[cc.KEY.up] && keys[cc.KEY.down] && !keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.DOWN;
+            this.moveDirection = TG.DIRECTION.DOWN;
         } else if (!keys[cc.KEY.up] && !keys[cc.KEY.down] && keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.LEFT;
+            this.moveDirection = TG.DIRECTION.LEFT;
         } else if (!keys[cc.KEY.up] && !keys[cc.KEY.down] && !keys[cc.KEY.left] && keys[cc.KEY.right]) {
             this.direction = TG.DIRECTION.RIGHT;
+            this.moveDirection = TG.DIRECTION.RIGHT;
+        } else if (!keys[cc.KEY.up] && !keys[cc.KEY.down] && !keys[cc.KEY.left] && !keys[cc.KEY.right]) {
+            this.moveDirection = TG.DIRECTION.NULL;
+        }
+        if(keys[cc.KEY.a]){
+            this.shoot();
         }
     },
     rotateToDirection:function () {
@@ -83,6 +119,12 @@ var Tank = cc.Sprite.extend({
                 break;
         }
         this.runAction(rotate);
+    },
+    shoot:function () {
+        var bullet = Bullet.create(s_bullet, this.side,
+            this.attack, 5, this.direction, this.position);
+        this.getParent().addChild(bullet);
+        TG.CONTAINER.PLAYER_BULLETS.push(bullet);
     },
     getPosition:function () {
         return this.position;

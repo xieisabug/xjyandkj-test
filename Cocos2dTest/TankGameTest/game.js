@@ -17,7 +17,8 @@ var TG = TG || {};
             'src/view/GameStartScene.js',
             'src/view/ChooseCharacterScene.js',
             'src/view/GamePlayScene.js',
-            'src/model/Tank.js'
+            'src/model/Tank.js',
+            'src/model/Bullet.js'
         ]
     };
     window.addEventListener('DOMContentLoaded', function () {
