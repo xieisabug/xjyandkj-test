@@ -8,11 +8,19 @@ TG.DIRECTION = {
     LEFT_UP:5,
     LEFT_DOWN:6,
     RIGHT_DOWN:7,
-    RIGHT_UP:8
+    RIGHT_UP:8,
+    NULL:9
 };
 
 TG.CONTAINER = {
     ENEMIES:[],
     ENEMY_BULLETS:[],
     PLAYER_BULLETS:[]
+};
+
+TG.SIDE = {
+    PLAYER:1,
+    ENEMIES:2,
+    ALL:3,
+    NULL:4
 };

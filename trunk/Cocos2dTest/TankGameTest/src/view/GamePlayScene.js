@@ -21,6 +21,9 @@ var GamePlayScene = cc.Layer.extend({
     },
     update:function(dt){
         this.tank.update(dt);
+        for(var i = 0; i < TG.CONTAINER.PLAYER_BULLETS.length; i++){
+            TG.CONTAINER.PLAYER_BULLETS[i].update();
+        }
     },
     onKeyDown:function(e){
         TG.KEYS[e] = true;
