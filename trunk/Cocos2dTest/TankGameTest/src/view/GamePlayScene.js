@@ -10,7 +10,7 @@ var GamePlayScene = cc.Layer.extend({
             var winSize = cc.Director.getInstance().getWinSize();
             this.screenRect = new cc.rect(0,0,winSize.width,winSize.height);
 
-            this.tank = new Tank(s_tank,10,5,10);
+            this.tank = new Tank(s_tank,TG.SIDE.PLAYER ,10,5,10);
             this.tank.setPosition(100,100);
             this.tank.setTag(TG.TAG.PLAYER_TANK);
             this.addChild(this.tank);
@@ -30,7 +30,6 @@ var GamePlayScene = cc.Layer.extend({
     },
     update:function(dt){
         var sel,obj = this.getChildren();
-        console.log("aa");
         for(var i = 0; i<obj.length; i++){
             sel = obj[i];
             if(sel){
@@ -47,18 +46,16 @@ var GamePlayScene = cc.Layer.extend({
                     }
                 }
             }
-            console.log("bb");
         }
-        console.log("cc");
     },
     onKeyDown:function(e){
         TG.KEYS[e] = true;
-        if(e == cc.KEY.a){
-            this.tank.shoot();
-        }
     },
     onKeyUp:function(e){
         TG.KEYS[e] = false;
+        if(e == cc.KEY.a){
+            this.tank.shoot();
+        }
     }
 });
 GamePlayScene.create = function(){
