@@ -12,7 +12,7 @@ var Bullet = cc.Sprite.extend({
     },
     update:function () {
         var pos = this.getPosition();
-        var sqrt = Math.sqrt(this.speed * this.speed/2);
+        var sqrt = Math.sqrt(this.speed * this.speed / 2);
         switch (this.direction) {
             case TG.DIRECTION.UP:
                 pos.y += this.speed;
@@ -43,31 +43,28 @@ var Bullet = cc.Sprite.extend({
                 pos.y -= sqrt;
                 break;
         }
-        this.setPosition(pos.x,pos.y);
+        this.setPosition(pos.x, pos.y);
     },
     hit:function (tank) {
-        if(cc.rectIntersectsRect(this.getBoundingBox(),tank.getBoundingBox())){
-            if(tank.side != this.side){
+        if (cc.rectIntersectsRect(this.getBoundingBox(), tank.getBoundingBox())) {
+            if (tank.side != this.side) {
                 tank.hurt(this.attack);
                 this.destroy();
             }
         }
     },
-    destroy:function(){
-        if(this.side == TG.SIDE.PLAYER){
-            cc.ArrayRemoveObject(TG.CONTAINER.PLAYER_BULLETS,this);
-        } else {
-            cc.ArrayRemoveObject(TG.CONTAINER.ENEMY_BULLETS,this);
-        }
-        this.removeFromParent(true);
+    destroy:function () {
+        cc.ArrayRemoveObject(TG.CONTAINER.PLAYER_BULLETS, this);
+        cc.ArrayRemoveObject(TG.CONTAINER.ENEMY_BULLETS, this);
+        this.removeFromParent();
     }
 });
 
 Bullet.create = function (file, side, attack, speed, dir, pos) {
     var bullet = new Bullet(file, side, attack, speed, dir, pos);
-    bullet.setPosition(pos.x,pos.y);
+    bullet.setPosition(pos.x, pos.y);
     bullet.setTag(TG.TAG.BULLET);
-    if(side == TG.SIDE.PLAYER){
+    if (side == TG.SIDE.PLAYER) {
         TG.CONTAINER.PLAYER_BULLETS.push(bullet);
     } else {
         TG.CONTAINER.ENEMY_BULLETS.push(bullet);

@@ -12,6 +12,7 @@ var Tank = cc.Sprite.extend({
         this._super();
         this.initWithFile(file);
         this.winSize = cc.Director.getInstance().getWinSize();
+        this.side = side;
         this.life = life;
         this.maxLife = life;
         this.speed = speed;
@@ -54,6 +55,14 @@ var Tank = cc.Sprite.extend({
                 pos.y -= sqrt;
                 break;
         }
+        if(pos.y >= this.winSize.height)
+            pos.y = this.winSize.height;
+        if(pos.y <= 0)
+            pos.y = 0;
+        if(pos.x >= this.winSize.width)
+            pos.x = this.winSize.width;
+        if(pos.x <= 0)
+            pos.x = 0;
         this.setPosition(pos.x, pos.y);
     },
     setDirection:function () {
@@ -120,8 +129,8 @@ var Tank = cc.Sprite.extend({
     },
     shoot:function () {
         var bullet = Bullet.create(s_bullet, this.side,
-            this.attack, 5, this.direction, this.getPosition());
-        this.getParent().addChild(bullet);
+            this.attack, 15, this.direction, this.getPosition());
+        this.getParent().addChild(bullet,TG.TAG.BULLET,TG.TAG.BULLET);
 
         TG.CONTAINER.PLAYER_BULLETS.push(bullet);
     },
@@ -133,7 +142,6 @@ var Tank = cc.Sprite.extend({
             } else {
                 this.destroy();
             }
-
         }
     },
     reborn:function(){
@@ -142,6 +150,6 @@ var Tank = cc.Sprite.extend({
         //todo 写一个重生的动画
     },
     destroy:function(){
-        this.removeFromParent(true);
+        this.removeFromParent();
     }
 });
