@@ -38,9 +38,7 @@ var GamePlayScene = cc.Layer.extend({
         var wall = obj.getObjects();
         for (var i = 0; i < wall.length; i++) {
             var w = wall[i];
-            cc.log(w);
             var r = cc.RectMake(w.x, w.y, w.width, w.height);
-            cc.log(r);
             TG.CONTAINER.WALLS.push(r);
         }
         this.addChild(this._backTileMap, -1);
