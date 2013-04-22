@@ -42,6 +42,7 @@ var Enemy = Tank.extend({
     },
     randomMove:function () {
         var pos = this.getPosition();
+        var tmppos = pos;
         var sqrt = Math.sqrt(this.speed * this.speed / 2);//斜着走的路径
         switch (this.direction) {
             case TG.DIRECTION.NULL:
@@ -83,6 +84,12 @@ var Enemy = Tank.extend({
             pos.x = this.winSize.width;
         if(pos.x <= 0)
             pos.x = 0;
+        var len = TG.CONTAINER.WALLS.length;
+        for (var i = 0; i < len; i++) {
+            if(cc.rectContainsPoint(TG.CONTAINER.WALLS[i],pos)){
+                pos = tmppos;
+            }
+        }
         this.setPosition(pos.x, pos.y);
     },
     hurt:function (attack) {
