@@ -1,7 +1,7 @@
 var Tank = cc.Sprite.extend({
     winSize:null, //游戏的大小
     life:null, //坦克的生命值
-    maxLife:null,//生命值上限
+    maxLife:null, //生命值上限
     speed:null, //坦克的速度
     attack:null, //坦克的攻击力
     side:null, //坦克的阵营
@@ -22,6 +22,7 @@ var Tank = cc.Sprite.extend({
         this.setDirection();
         this.rotateToDirection();
         var pos = this.getPosition();
+        var tmppos = pos;
         var sqrt = Math.sqrt(this.speed * this.speed / 2);//斜着走的路径
         switch (this.moveDirection) {
             case TG.DIRECTION.NULL:
@@ -55,14 +56,20 @@ var Tank = cc.Sprite.extend({
                 pos.y -= sqrt;
                 break;
         }
-        if(pos.y >= this.winSize.height)
+        if (pos.y >= this.winSize.height)
             pos.y = this.winSize.height;
-        if(pos.y <= 0)
+        if (pos.y <= 0)
             pos.y = 0;
-        if(pos.x >= this.winSize.width)
+        if (pos.x >= this.winSize.width)
             pos.x = this.winSize.width;
-        if(pos.x <= 0)
+        if (pos.x <= 0)
             pos.x = 0;
+        var len = TG.CONTAINER.WALLS.length;
+        for (var i = 0; i < len; i++) {
+            if(cc.rectContainsPoint(TG.CONTAINER.WALLS[i],pos)){
+                pos = tmppos;
+            }
+        }
         this.setPosition(pos.x, pos.y);
     },
     setDirection:function () {
@@ -130,26 +137,26 @@ var Tank = cc.Sprite.extend({
     shoot:function () {
         var bullet = Bullet.create(s_bullet, this.side,
             this.attack, 15, this.direction, this.getPosition());
-        this.getParent().addChild(bullet,TG.TAG.BULLET,TG.TAG.BULLET);
+        this.getParent().addChild(bullet, TG.TAG.BULLET, TG.TAG.BULLET);
 
         TG.CONTAINER.PLAYER_BULLETS.push(bullet);
     },
     hurt:function (attack) {
         this.life -= attack;
-        if(this.life <= 0){
-            if(TG.LIFE > 0) {
+        if (this.life <= 0) {
+            if (TG.LIFE > 0) {
                 this.reborn();
             } else {
                 this.destroy();
             }
         }
     },
-    reborn:function(){
+    reborn:function () {
         TG.LIFE--;
         this.life = this.maxLife;
         //todo 写一个重生的动画
     },
-    destroy:function(){
+    destroy:function () {
         this.removeFromParent();
     }
 });

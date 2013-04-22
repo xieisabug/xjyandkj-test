@@ -18,7 +18,9 @@ TG.DIRECTION = {
 TG.CONTAINER = {
     ENEMIES:[],
     ENEMY_BULLETS:[],
-    PLAYER_BULLETS:[]
+    PLAYER_BULLETS:[],
+    WALLS:[]
+
 };
 
 //阵营
