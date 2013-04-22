@@ -1,5 +1,6 @@
 var Tank = cc.Sprite.extend({
     winSize:null, //游戏的大小
+    contentSize:null,
     life:null, //坦克的生命值
     maxLife:null, //生命值上限
     speed:null, //坦克的速度
@@ -12,6 +13,7 @@ var Tank = cc.Sprite.extend({
         this._super();
         this.initWithFile(file);
         this.winSize = cc.Director.getInstance().getWinSize();
+        this.contentSize = this.getContentSize();
         this.side = side;
         this.life = life;
         this.maxLife = life;
@@ -22,7 +24,7 @@ var Tank = cc.Sprite.extend({
         this.setDirection();
         this.rotateToDirection();
         var pos = this.getPosition();
-        var tmppos = pos;
+        var tmpPos = this.getPosition();
         var sqrt = Math.sqrt(this.speed * this.speed / 2);//斜着走的路径
         switch (this.moveDirection) {
             case TG.DIRECTION.NULL:
@@ -65,9 +67,12 @@ var Tank = cc.Sprite.extend({
         if (pos.x <= 0)
             pos.x = 0;
         var len = TG.CONTAINER.WALLS.length;
+        var box = this.getBoundingBox();
+        box.origin = {x:pos.x-this.contentSize.width/2,y:pos.y-this.contentSize.height/2};
         for (var i = 0; i < len; i++) {
-            if(cc.rectContainsPoint(TG.CONTAINER.WALLS[i],pos)){
-                pos = tmppos;
+            if(cc.rectIntersectsRect(TG.CONTAINER.WALLS[i],box)){
+                this.setPosition(tmpPos.x,tmpPos.y);
+                return;
             }
         }
         this.setPosition(pos.x, pos.y);
@@ -138,7 +143,6 @@ var Tank = cc.Sprite.extend({
         var bullet = Bullet.create(s_bullet, this.side,
             this.attack, 15, this.direction, this.getPosition());
         this.getParent().addChild(bullet, TG.TAG.BULLET, TG.TAG.BULLET);
-
         TG.CONTAINER.PLAYER_BULLETS.push(bullet);
     },
     hurt:function (attack) {

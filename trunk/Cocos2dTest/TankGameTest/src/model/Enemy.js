@@ -86,8 +86,9 @@ var Enemy = Tank.extend({
             pos.x = 0;
         var len = TG.CONTAINER.WALLS.length;
         for (var i = 0; i < len; i++) {
-            if(cc.rectContainsPoint(TG.CONTAINER.WALLS[i],pos)){
+            if(cc.rectIntersectsRect(TG.CONTAINER.WALLS[i],this.getBoundingBox())){
                 pos = tmppos;
+                return;
             }
         }
         this.setPosition(pos.x, pos.y);
