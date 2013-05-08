@@ -66,16 +66,27 @@ var Tank = cc.Sprite.extend({
             pos.x = this.winSize.width;
         if (pos.x <= 0)
             pos.x = 0;
-        var len = TG.CONTAINER.WALLS.length;
+        //var len = TG.CONTAINER.WALLS.length;
         var box = this.getBoundingBox();
         box.origin = {x:pos.x-this.contentSize.width/2,y:pos.y-this.contentSize.height/2};
+        var map = this.getParent()._backTileMap;
+        var layer = map.getLayer("build");
+        var gid = layer.getTileGIDAt(this.tileCoordForPosition(this.getPosition()));
+        var couldMove = map.propertiesForGID(gid);
+        cc.log(couldMove);
+        if(couldMove){
+            this.setPosition(pos);
+        } else {
+            this.setPosition(tmpPos)
+        }
+        /*
         for (var i = 0; i < len; i++) {
             if(cc.rectIntersectsRect(TG.CONTAINER.WALLS[i],box)){
                 this.setPosition(tmpPos.x,tmpPos.y);
                 return;
             }
         }
-        this.setPosition(pos.x, pos.y);
+        */
     },
     setDirection:function () {
         var keys = TG.KEYS;
@@ -107,6 +118,13 @@ var Tank = cc.Sprite.extend({
         } else if (!keys[cc.KEY.up] && !keys[cc.KEY.down] && !keys[cc.KEY.left] && !keys[cc.KEY.right]) {
             this.moveDirection = TG.DIRECTION.NULL;
         }
+    },
+    tileCoordForPosition:function(pos){
+        var tileSize = this.getParent()._backTileMap.getTileSize();
+        var mapSize = this.getParent()._backTileMap.getMapSize();
+        var x = pos.x /tileSize.width;
+        var y = (mapSize.height*tileSize.height-pos.y)/tileSize.height;
+        return cc.p(x,y);
     },
     rotateToDirection:function () {
         var rotate = null;
