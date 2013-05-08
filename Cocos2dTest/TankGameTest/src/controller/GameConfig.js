@@ -18,8 +18,8 @@ TG.DIRECTION = {
 TG.CONTAINER = {
     ENEMIES:[],
     ENEMY_BULLETS:[],
-    PLAYER_BULLETS:[],
-    WALLS:[]
+    PLAYER_BULLETS:[]
+    //WALLS:[]
 
 };
 
