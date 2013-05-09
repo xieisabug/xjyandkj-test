@@ -34,15 +34,13 @@ var GamePlayScene = cc.Layer.extend({
     },
     initMap:function () {
         this._backTileMap = cc.TMXTiledMap.create(s_tmxMap);
-        /*
-        var obj = this._backTileMap.getObjectGroup('对象层 1');
+        var obj = this._backTileMap.getObjectGroup('wall');
         var wall = obj.getObjects();
         for (var i = 0; i < wall.length; i++) {
             var w = wall[i];
             var r = cc.RectMake(w.x, w.y, w.width, w.height);
             TG.CONTAINER.WALLS.push(r);
         }
-        */
         this.addChild(this._backTileMap, -1);
     },
     update:function (dt) {
