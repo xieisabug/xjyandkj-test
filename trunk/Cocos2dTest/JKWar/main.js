@@ -6,22 +6,21 @@ var cocos2dApp = cc.Application.extend({
         cc.COCOS2D_DEBUG = this.config['COCOS2D_DEBUG'];
         cc.initDebugSetting();
         cc.setup(this.config['tag']);
-        cc.Loader.getInstance().onloading = function () {
-            cc.LoaderScene.getInstance().draw();
-        };
-        cc.Loader.getInstance().onload = function () {
-            cc.AppController.shareAppController().didFinishLaunchingWithOptions();
-        };
-        cc.Loader.getInstance().preload(g_ressources);
+        cc.AppController.shareAppController().didFinishLaunchingWithOptions();
     },
     applicationDidFinishLaunching:function () {
         var director = cc.Director.getInstance();
+
+        cc.EGLView.getInstance().setDesignResolutionSize(800,450,cc.RESOLUTION_POLICY.SHOW_ALL);
 
         director.setDisplayStats(this.config['showFPS']);
 
         director.setAnimationInterval(1.0 / this.config['frameRate']);
 
-        director.runWithScene(new this.startScene());
+        cc.LoaderScene.preload(g_ressources, function () {
+            director.replaceScene(new this.startScene());
+        }, this);
+
         return true;
     }
 });

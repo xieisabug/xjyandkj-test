@@ -179,8 +179,8 @@
   </tile>
  </tileset>
  <layer name="块层 1" width="13" height="6">
-  <data encoding="base64" compression="zlib">
-   eJwNw4dWQQEAANBHRiI0lBlNihYKlU0q9P+f495zbigIgrB7RowaM+6+CQ9MmvLQtBmzHnnsiafmPPPcvAWLlixb8cKqNS+98tobb72zbsN7H2za8tEnn33x1bYdu775bs++Az/89MuhI8dOnDpz7sKl36788dc/127c+u8OBUMMCg==
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACw3Dh1ZBAQAA0EdGIjSUGU2KFgqVTSr0/5/j3nNuKAiCsHtGjBoz7r4JD0ya8tC0GbMeeeyJp+Y889y8BYuWLFvxwqo1L73y2htvvbNuw3sfbNry0SefffHVth27vvluz74DP/z0y6Ejx06cOnPuwqXfrvzx1z/Xbtz67w7xFpB6OAEAAA==
   </data>
  </layer>
  <objectgroup name="tower" width="16" height="8"/>
