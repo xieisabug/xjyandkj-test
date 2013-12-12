@@ -7,7 +7,7 @@
     <script src="index.js" type="text/javascript"></script>
     <script type="text/javascript">
         window.addEvent('domready', function(){
-            new Select(select,'测试').selectItemInit([
+            new Select(select,[{name:'测试',value:'#'}]).selectItemAdd([
                 {
                     name:'站内资源',
                     value:'www.baidu.com'
@@ -19,16 +19,29 @@
         .btn {
             border: 1px solid #aaaaaa;
             background: #ffffff;
+            outline: none;
+            cursor: pointer;
         }
         .btn:hover {
-            background: #cfcfcf;
+            background: #efefef;
         }
         .selectItemDiv {
             border: 1px solid #aaaaaa;
             background : #ffffff;
         }
+        .selectItemDiv ul{
+            margin:0;
+            padding: 20px 5px 20px 5px;
+        }
         .selectItemDiv li{
             font-size: 0.8em;
+            list-style: none;
+            height: 20px;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .selectItemDiv li:hover{
+            background-color: #efefef;
         }
     </style>
 </head>
