@@ -43,23 +43,26 @@ var Select = new Class({
             });
             $$('body').grab(this.selectDiv);//将选择的面板添加到网页中
             //对按钮绑定点击事件，使面板可以显示和隐藏
-            this.body.addEvent('click', function () {
+            this.clickFunction =  function () {
                 if (thiz.selectDiv.getStyle('display') == 'none') {
                     thiz.selectDiv.setStyle('display', 'block');
                 } else {
                     thiz.selectDiv.setStyle('display', 'none');
                 }
-            });
+            };
+            this.body.addEvent('click',this.clickFunction);
             //绑定鼠标事件，当鼠标移开选择面板的时候会隐藏
-            this.selectDiv.addEvent('mouseleave', function () {
-                this.setStyle('display', 'none');
-            });
+            this.mouseLeaveFunction = function(){
+                    this.setStyle('display', 'none');
+            };
+            this.selectDiv.addEvent('mouseleave',this.mouseLeaveFunction);
             //对选择的每个li绑定点击事件
+            this.itemClickFunction = function () {
+                this.body.set('text', this.itemNames[index]);
+                this.body.set('value', this.itemValues[index]);
+            };
             Array.each(this.selectDiv.getElements('li'), function (item, index) {
-                item.addEvent('click', function () {
-                    thiz.body.set('text', thiz.itemNames[index]);
-                    thiz.body.set('value', thiz.itemValues[index]);
-                });
+                item.addEvent('click', thiz.itemClickFunction);
             });
         } else {
             new Error("下拉列表的名称和值不能为空,必须指定Select的第二个参数")
@@ -115,5 +118,45 @@ var Select = new Class({
     removeSelectPanelClass:function(className){
         this.selectDiv.removeClass(className);
         return this;
+    },
+    //增加动画效果
+    animate:function(){
+        var thiz = this;
+        //动画效果设置
+        var bouncingOut = new Fx.Tween(this.selectDiv,{
+            duration:'1000',
+            transition:'bounce:out'
+        });
+        //重置样式
+        this.selectDiv.setStyles({
+            height:0,
+            overflow:'hidden',
+            display:'none'
+        });
+        //移除以前的点击事件，覆盖点击方法，增加新的带有动画的点击方法，并绑定事件
+        this.body.removeEvent('click',this.clickFunction);
+        this.clickFunction = function () {
+            if (thiz.selectDiv.getStyle('display') == 'none') {
+                thiz.selectDiv.setStyle('display', 'block');
+                bouncingOut.start('height', thiz.itemNames.length * 30 + 40);
+            } else {
+                bouncingOut.start('height', 0).chain(function(){
+                    thiz.selectDiv.setStyle('display', 'none');
+                });
+            }
+        };
+        this.body.addEvent('click', this.clickFunction);
+
+        //移除以前的鼠标移开事件，覆盖方法，并且增加带有动画的鼠标移开方法，并绑定事件
+        this.selectDiv.removeEvent('mouseleave',this.mouseLeaveFunction);
+        this.mouseLeaveFunction = function () {
+            bouncingOut.start('height', 0).chain(function(){
+                thiz.selectDiv.setStyle('display', 'none');
+            });
+        };
+        this.selectDiv.addEvent('mouseleave',this.mouseLeaveFunction );
+    },
+    clearClass:function(){
+        this.body.removeCl
     }
 });
