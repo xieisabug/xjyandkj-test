@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../lib/mootools-core-1.4.5-full-compat.js" type="text/javascript"></script>
+    <script src="index.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.addEvent('domready', function(){
+            new Panel($('panel'));
+        });
+    </script>
+    <style>
+        .panel-head {
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fcfeff', endColorstr = '#d5edfd');
+            /*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+            /*Element must have a height (not auto)*/
+            /*All filters must be placed together*/
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#fcfeff', endColorstr = '#d5edfd')";
+            /*Element must have a height (not auto)*/
+            /*All filters must be placed together*/
+            background-image: -moz-linear-gradient(top, #fcfeff, #d5edfd);
+            background-image: -ms-linear-gradient(top, #fcfeff, #d5edfd);
+            background-image: -o-linear-gradient(top, #fcfeff, #d5edfd);
+            background-image: -webkit-gradient(linear, center top, center bottom, from(#fcfeff), to(#d5edfd));
+            background-image: -webkit-linear-gradient(top, #fcfeff, #d5edfd);
+            background-image: linear-gradient(top, #fcfeff, #d5edfd);
+            /*--IE9 DOES NOT SUPPORT CSS3 GRADIENT BACKGROUNDS--*/
+
+            -moz-border-radius: 4px 4px 0 0;
+            -webkit-border-radius: 4px 4px 0 0;
+            border-radius: 4px 4px 0 0;
+            border:1px solid #75ade7;
+            height: 33px;
+            line-height: 30px;
+            font-size: 0.9em;
+        }
+        .panel-head-icon {
+            margin: 6px 15px 0 10px;
+            height: 16px;
+            width: 16px;
+            float: left;
+        }
+        .panel-head-icon-arrow {
+            background-image: url(image/panel-head-icon-arrow.png);
+        }
+        .panel-content {
+            -moz-border-radius: 0 0 4px 4px;
+            -webkit-border-radius: 0 0 4px 4px;
+            border-radius: 0 0 4px 4px;
+            border:1px solid #75ade7;
+            border-top: 0;
+            padding: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div id="panel">
+        <div>
+            <div class="panel-head-icon"></div>
+            <span>用户登陆</span>
+        </div>
+        <div>
+            <div>
+                <label for="username">用户名</label>
+                <!--<span>用户名：</span>-->
+                <input class="form-control" type="text" id="username"
+                       name="username" placeholder="请输入用户名">
+            </div>
+            <div>
+                <label for="password">密&nbsp;&nbsp;码</label>
+                <!--<span>密码：</span>-->
+                <input class="form-control" type="password" id="password"
+                       name="password" placeholder="请输入密码">
+            </div>
+            <div>
+                <label for="captcha">验证码</label>
+                <!--<span>密码：</span>-->
+                <input class="form-control" type="text" id="captcha"
+                       name="captcha" placeholder="输入弹出的验证码">
+            </div>
+            <div>
+                <div id="login_btn" class="btn btn-default">
+                    <span class="btn-login-icon"></span>
+                    登陆
+                </div>
+                <div id="register_btn" class="btn btn-default">
+                    <span class="btn-register-icon"></span>
+                    注册
+                </div>
+            </div>
+            <div class="p-small-font align-right">
+                <p>忘记密码？请<a href="#">点击这里</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
