@@ -12,6 +12,12 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!-- 静态资源访问 -->
+    <mvc:resources location="WEB-INF/pages/css/" mapping="/css/**"/>
+    <mvc:resources location="WEB-INF/pages/js/" mapping="/js/**"/>
+    <mvc:resources location="WEB-INF/pages/ueditor/" mapping="/ueditor/**"/>
+
     <!--<websocket:handlers>
         <websocket:mapping path="/myHandler" handler="myHandler"/>
     </websocket:handlers>
