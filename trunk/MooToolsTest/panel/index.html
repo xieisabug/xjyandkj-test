@@ -6,9 +6,14 @@
     <script src="../lib/mootools-core-1.4.5-full-compat.js" type="text/javascript"></script>
     <script src="index.js" type="text/javascript"></script>
     <script type="text/javascript">
+        var panel = null;
         window.addEvent('domready', function(){
-            new Panel($('panel'));
+            panel = new Panel($('panel'));
         });
+        function updateHtml(){
+            var html = '<div><h1>更新成功！</h1></div><div><h3>ohoh~~</h3></div>';
+            panel.updateWithAnimate('toggle',html);
+        }
     </script>
     <style>
         .panel-head {
@@ -51,6 +56,7 @@
             border:1px solid #75ade7;
             border-top: 0;
             padding: 13px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -94,5 +100,6 @@
             </div>
         </div>
     </div>
+<button onclick="updateHtml()">更新html</button>
 </body>
 </html>
