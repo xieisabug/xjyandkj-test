@@ -1,5 +1,19 @@
 var stompClient = null;
 var editor = UE.getEditor('ueditor');
+var oldCursor = null;
+editor.addListener('beforeSelectionChange',function(){
+    console.log("before:" + editor.selection.getRange().startOffset);
+});
+editor.addListener('afterSelectionChange',function(){
+    console.log("after:" + editor.selection.getRange().startOffset);
+});
+editor.addListener('contentChange',function(){
+    console.log("change:" + editor.selection.getRange().startOffset);
+});
+editor.addListener('keyUp',function(){
+    console.log("keyDown from:" + oldCursor + ' to ' + editor.selection.getRange().startOffset);
+    oldCursor = editor.selection.getRange().startOffset;
+});
 function setConnected(connected) {
     document.getElementById('connect').disabled = connected;
 }
