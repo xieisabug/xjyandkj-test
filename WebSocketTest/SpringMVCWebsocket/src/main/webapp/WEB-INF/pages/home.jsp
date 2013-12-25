@@ -14,6 +14,7 @@
     <div id="info">
         <span>${user.username}</span>
         <button id="connect" onclick="connect()">连接</button>
+        <button id="generateWord" onclick="generateWord()">生成word</button>
     </div>
     <div id="editor">
         <textarea name="ueditor" id="ueditor"></textarea>
