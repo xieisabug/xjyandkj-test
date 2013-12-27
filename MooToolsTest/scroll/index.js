@@ -3,7 +3,9 @@ var Scroll = new Class({
         var thiz = this;
         this.option = Object.merge({
             width: 500,
-            height: 500
+            height: 500,
+            leftArrowCss : 'leftArrow',
+            rightArrowCss : 'rightArrow'
         }, option);
         this.scrollBody = el;
         this.scrollBody.addClass('scroll-content');
@@ -11,6 +13,20 @@ var Scroll = new Class({
             width: this.option.width,
             height: this.option.height
         });
+        this.rightBtn = new Element('a',{
+            'class':'right rightArrow'
+        });
+        this.scrollBody.grab(this.rightBtn,'bottom');
+        this.rightBtn.addEvent('click',function(){
+            thiz.nextPage();
+        });
+        this.leftBtn = new Element('a',{
+            'class':'left leftArrow'
+        });
+        this.leftBtn.addEvent('click',function(){
+            thiz.prePage();
+        });
+        this.scrollBody.grab(this.leftBtn,'bottom');
         this.pages = this.scrollBody.getChildren('div');
         this.pageCount = this.pages.length;
         if (this.pageCount == 0) {

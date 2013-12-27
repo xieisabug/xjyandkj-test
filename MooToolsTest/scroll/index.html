@@ -47,6 +47,31 @@
         .visible {
             visibility: visible;
         }
+        a.right {
+            right: 0;
+            top: 0;
+        }
+        .rightArrow {
+            background: url('image/fleche2.png') no-repeat center right;
+        }
+        a.left {
+            left: 0;
+            top: 0;
+        }
+        .leftArrow {
+            background: url('image/fleche1.png') no-repeat center left;
+        }
+        a.left,a.right{
+            position: absolute;
+            height: 99%;
+            width: 25%;
+            cursor: pointer;
+            z-index: 10;
+            filter: alpha(opacity=60);
+            -moz-opacity: 0.6;
+            -khtml-opacity: 0.6;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
