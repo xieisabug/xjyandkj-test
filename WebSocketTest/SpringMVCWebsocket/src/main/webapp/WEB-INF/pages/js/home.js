@@ -45,7 +45,9 @@ function getNodeIndex(node){
 }
 //通过一个节点的index来改变一个节点内容
 function changeNodeByIndex(index, html){
+    var rangeStart = editor.selection.getRange().startOffset;
     findNodeByIndex(index).outerHTML = html;
+    console.log(editor.selection.getRange().setStart(findNodeByIndex(index).firstChild,rangeStart).setEnd(findNodeByIndex(index).firstChild,rangeStart).setCursor());
 }
 /*这部分函数结束*/
 
