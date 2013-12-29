@@ -43,11 +43,17 @@ function findNodeByIndex(index){
 function getNodeIndex(node){
     return UE.dom.domUtils.getNodeIndex(node);
 }
-//通过一个节点的index来改变一个节点内容
-function changeNodeByIndex(index, html){
+//通过一个节点的index来改变一个节点内容,cursorChange表示是否需要改变光标位置
+function changeNodeByIndex(index, html, cursorChange){
     var rangeStart = editor.selection.getRange().startOffset;
-    findNodeByIndex(index).outerHTML = html;
-    console.log(editor.selection.getRange().setStart(findNodeByIndex(index).firstChild,rangeStart).setEnd(findNodeByIndex(index).firstChild,rangeStart).setCursor());
+    if(cursorChange) {
+        findNodeByIndex(index).outerHTML = html;
+        editor.selection.getRange().setStart(findNodeByIndex(index).firstChild,rangeStart).setEnd(findNodeByIndex(index).firstChild,rangeStart).setCursor();
+    } else {
+        var myIndex = getNodeIndex(getInputNode());
+        findNodeByIndex(index).outerHTML = html;
+        editor.selection.getRange().setStart(findNodeByIndex(myIndex).firstChild,rangeStart).setEnd(findNodeByIndex(myIndex).firstChild,rangeStart).setCursor()
+    }
 }
 /*这部分函数结束*/
 
@@ -71,7 +77,7 @@ function connect() {
             var wordJ = JSON.parse(word.body);
             console.log('showWord:');
             console.log(wordJ);
-            changeNodeByIndex(wordJ.index, decodeURIComponent(wordJ.content));
+            changeNodeByIndex(wordJ.index, decodeURIComponent(wordJ.content), username == word.username);
         });
     });
 }
