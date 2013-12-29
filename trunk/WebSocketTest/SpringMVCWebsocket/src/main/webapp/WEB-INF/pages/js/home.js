@@ -10,7 +10,7 @@ if(UE.browser.ie) {
     editor.addListener('contentChange', function(){
         var data = JSON.stringify({
             'username': encodeURIComponent(username),
-            'index': (getInputTopNode()),
+            'index': getNodeIndex(getInputTopNode()),
             'content': encodeURIComponent(getInputTopNode().outerHTML)
         });
         console.log('contentChange:');
@@ -92,10 +92,8 @@ function sendName() {
 
 //显示聊天信息
 function showGreeting(message) {
+    console.log('showGreeting: ');
+    console.log(message);
     var response = document.getElementById('chat_content');
     response.value += decodeURIComponent(message.username) + ':' + decodeURIComponent(message.content) + '\n';
-    response.scrollTop = response.scrollHeight - response.offsetHeight;
-}
-function generateWord() {
-//    console.log(editor.getContentHtml());
 }
