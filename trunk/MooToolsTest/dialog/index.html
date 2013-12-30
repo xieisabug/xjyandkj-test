@@ -8,9 +8,20 @@
     <script src="drag.js" type="text/javascript"></script>
     <script type="text/javascript">
         window.addEvent('domready', function () {
-            new Dialog($('dialog'),{
-                width:200,
-                height:300
+            var d = new Dialog($('dialog'),{
+                width:400,
+                height:300,
+                left:100,
+                top:100,
+                position:'right_bottom',
+                titleHtml:'<span>测试标题</span>',
+                draggable:true,
+                model:false,
+                closeable:true
+            });
+            var b = $('show');
+            b.addEvent('click',function(){
+                d.show();
             });
         });
     </script>
@@ -40,12 +51,13 @@
             font-size: 0.9em;
         }
         .dialog-content {
-            border: 1px solid #d5edfd;
-            padding:10px;
+            border: 1px solid #75ade7;
+            background: #fff;
         }
     </style>
 </head>
 <body>
 <div id="dialog"></div>
+<button id="show" style="width:100px; height: 100px; font-size: 15px">显示</button>
 </body>
 </html>
