@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="test">
+<head>
+    <title>prj03</title>
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.js"></script>
+    <script src="index.js"></script>
+</head>
+<body ng-controller="inputTest">
+    <label>test model:
+        <input type="text" ng-model="mo"/>
+    </label>
+
+    <h1>{{mo}}</h1>
+    <ul>
+        <li ng-repeat="l in list | filter:mo">
+            {{l}}
+        </li>
+    </ul>
+</body>
+</html>
