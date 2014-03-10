@@ -50,37 +50,42 @@ final class DualPivotQuicksort {
 
     /**
      * The maximum number of runs in merge sort.
+     * 最大归并的个数
      */
     private static final int MAX_RUN_COUNT = 67;
 
     /**
      * The maximum length of run in merge sort.
+     * 最大归并长度
      */
     private static final int MAX_RUN_LENGTH = 33;
 
     /**
-     * If the length of an array to be sorted is less than this
-     * constant, Quicksort is used in preference to merge sort.
+     * 如果数组的长度小于下面这个数，快排被优先用于合并排序
      */
     private static final int QUICKSORT_THRESHOLD = 286;
 
     /**
-     * If the length of an array to be sorted is less than this
-     * constant, insertion sort is used in preference to Quicksort.
+     * 如果数组的长度小于下面这个数，插入排序被优先用于快排
      */
     private static final int INSERTION_SORT_THRESHOLD = 47;
 
     /**
-     * If the length of a byte array to be sorted is greater than this
-     * constant, counting sort is used in preference to insertion sort.
+     * 如果是一个byte数组，而且长度大于下面这个数，那么计数排序优先用于插入排序
      */
     private static final int COUNTING_SORT_THRESHOLD_FOR_BYTE = 29;
 
     /**
-     * If the length of a short or char array to be sorted is greater
-     * than this constant, counting sort is used in preference to Quicksort.
+     * 如果是一个短整型和字符型数组，并且长度大于下面这个数，计数排序优先用于快速排序
      */
     private static final int COUNTING_SORT_THRESHOLD_FOR_SHORT_OR_CHAR = 3200;
+    /**
+     * 从上面这些变量看来，这个排序的算法对于各种情况都做了判断，对于为什么要做这些
+     * 判断，很容易知道，是因为各个排序算法适应于各种数组，有的时间复杂度比较适应于
+     * 大数组，而有的比较适应于小数组，有的比较适应于比较的位数比较小的数组。但是，
+     * 为什么是上面的这些数字还没有进行深度研究。
+     * TODO 下次有时间记得研究为什么使用上面的这些数字做为分界线
+     */
 
     /*
      * Sorting methods for seven primitive types.
@@ -103,7 +108,7 @@ final class DualPivotQuicksort {
      * @param right the index of the last element, inclusive, to be sorted
      */
     public static void sort(int[] a, int left, int right) {
-        // Use Quicksort on small arrays
+        // 数组大小如果达到使用快排的要求，则使用快排
         if (right - left < QUICKSORT_THRESHOLD) {
             sort(a, left, right, true);
             return;
